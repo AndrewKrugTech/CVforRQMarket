@@ -7,14 +7,15 @@ from coordinates import defineURPoint,defineDLPoint,defineRefreshPoint
 
 counter = 1
 x1, y1 = defineURPoint()
-print(x1,y1)
+x2, y2 = defineDLPoint()
+x3, y3 = defineRefreshPoint()
 while True:
     with mss() as sct:
         sct.shot()
 
     pytesseract.pytesseract.tesseract_cmd = 'C:\\Users\\Andrey\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe'
     im = Image.open('monitor-1.png')
-    im_crop = im.crop((811, 240, 900, 630))
+    im_crop = im.crop((x1, y1, x2, y2))
     im_crop.save('MarketPic.jpg', quality=95)
     img = cv2.imread('MarketPic.jpg')
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
