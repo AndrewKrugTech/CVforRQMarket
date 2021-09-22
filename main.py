@@ -1,22 +1,43 @@
 from mss import mss
-
-# while True:
-with mss() as sct:
-    sct.shot()
-
+from PIL import Image
 import cv2
 import pytesseract
+import time
+from coordinates import defineURPoint,defineDLPoint,defineRefreshPoint
 
-pytesseract.pytesseract.tesseract_cmd = 'C:\\Users\\Andrey\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe'
+counter = 1
+x1, y1 = defineURPoint()
+print(x1,y1)
+while True:
+    with mss() as sct:
+        sct.shot()
 
-img = cv2.imread('monitor-1.png')
-img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    pytesseract.pytesseract.tesseract_cmd = 'C:\\Users\\Andrey\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe'
+    im = Image.open('monitor-1.png')
+    im_crop = im.crop((811, 240, 900, 630))
+    im_crop.save('MarketPic.jpg', quality=95)
+    img = cv2.imread('MarketPic.jpg')
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-config = r'--oem 3 --psm 6'
-print(pytesseract.image_to_string(img, config=config))
+    config = r'--oem 3 --psm 6'
 
+    l = list(pytesseract.image_to_string(img, config=config))[:5]
+
+    if '\n' in l:
+        l.remove('\n')
+
+    prices = int(''.join(l))
+    if (prices) <= 1001:
+        print(prices)
+    else:
+        print(type(prices))
+        print('Нет карт по выбранной цене')
+    print(f"Проверка номер {counter}")
+    print("-"*40)
+    time.sleep(3)
+
+'''
 data = pytesseract.image_to_data(img, config=config)
-
 for i, el in enumerate(data.splitlines()):
     if i == 0:
         continue
@@ -31,3 +52,4 @@ for i, el in enumerate(data.splitlines()):
 
 cv2.imshow('Result', img)
 cv2.waitKey(0)
+'''
