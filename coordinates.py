@@ -1,7 +1,6 @@
 import pyautogui
 import keyboard as kb
 
-
 def defineURPoint():
     x1 = int()
     y1 = int()
@@ -10,7 +9,6 @@ def defineURPoint():
             x1, y1 = pyautogui.position()
     return x1, y1
 
-
 def defineDLPoint():
     x2 = int()
     y2 = int()
@@ -18,7 +16,6 @@ def defineDLPoint():
         if kb.is_pressed("x"):
             x2, y2 = pyautogui.position()
     return x2, y2
-
 
 def defineRefreshPoint():
     x3 = int()

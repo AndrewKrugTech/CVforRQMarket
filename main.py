@@ -9,6 +9,7 @@ counter = 1
 x1, y1 = defineURPoint()
 x2, y2 = defineDLPoint()
 x3, y3 = defineRefreshPoint()
+
 while True:
     with mss() as sct:
         sct.shot()
