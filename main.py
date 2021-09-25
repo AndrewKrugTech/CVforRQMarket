@@ -1,16 +1,18 @@
+import pyautogui
 from mss import mss
 from PIL import Image
 import cv2
 import pytesseract
 import time
-from coordinates import defineURPoint,defineDLPoint,defineRefreshPoint
+from coordinates import definePoints
+import keyboard as kb
+
 
 counter = 1
-x1, y1 = defineURPoint()
-x2, y2 = defineDLPoint()
-x3, y3 = defineRefreshPoint()
+i = 0
+x1, y1, x2, y2, x3, y3 = definePoints()
 
-while True:
+while True:# kb.is_pressed("F9") != True:
     with mss() as sct:
         sct.shot()
 
@@ -22,23 +24,45 @@ while True:
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
     config = r'--oem 3 --psm 6'
+    l = list(pytesseract.image_to_string(img, config=config))  # [:5]
+    #zxvprint(l)
+    #print(i, l)
+    correctedList = l[:l.index('\n')]
+    print(correctedList)
 
-    l = list(pytesseract.image_to_string(img, config=config))[:5]
+    while '©' in correctedList:
+        correctedList.remove('©')
+    print(1)
+    while '.' in correctedList:
+        correctedList.remove('.')
+    print(2)
+    while ' ' in correctedList:
+        correctedList.remove(' ')
+    print(3)
+    while '@' in correctedList:
+        correctedList.remove('@')
+    print(4)
+    print(correctedList)
 
-    if '\n' in l:
-        l.remove('\n')
+    price = int(''.join(correctedList))
 
-    prices = int(''.join(l))
-    if (prices) <= 1001:
-        print(prices)
+
+    if price <= 1000:
+        #print(price)
+        pyautogui.click(x=x1-1590, y=y1+190, clicks=6)
+        for i in range(5):
+            kb.send("Enter")
+        print(f"Цена карты составила {price}")
     else:
-        print(type(prices))
+        #print(type(price), price)
         print('Нет карт по выбранной цене')
-    print(f"Проверка номер {counter}")
-    print("-"*40)
+        pyautogui.click(x=x3-1600, y=y3+180, clicks=1)
+    print(f"Проверка номер {counter}. Минимальная цена {price}")
+    counter += 1
+    print("-" * 40)
     time.sleep(3)
 
-'''
+"""
 data = pytesseract.image_to_data(img, config=config)
 for i, el in enumerate(data.splitlines()):
     if i == 0:
@@ -54,4 +78,4 @@ for i, el in enumerate(data.splitlines()):
 
 cv2.imshow('Result', img)
 cv2.waitKey(0)
-'''
+"""
