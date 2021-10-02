@@ -25,38 +25,36 @@ while True:# kb.is_pressed("F9") != True:
 
     config = r'--oem 3 --psm 6'
     l = list(pytesseract.image_to_string(img, config=config))  # [:5]
-    #zxvprint(l)
+    #print(l)
     #print(i, l)
     correctedList = l[:l.index('\n')]
     print(correctedList)
 
     while '©' in correctedList:
         correctedList.remove('©')
-    print(1)
     while '.' in correctedList:
         correctedList.remove('.')
-    print(2)
     while ' ' in correctedList:
         correctedList.remove(' ')
-    print(3)
     while '@' in correctedList:
         correctedList.remove('@')
-    print(4)
     print(correctedList)
 
-    price = int(''.join(correctedList))
-
-
-    if price <= 1000:
-        #print(price)
-        pyautogui.click(x=x1-1590, y=y1+190, clicks=6)
-        for i in range(5):
-            kb.send("Enter")
-        print(f"Цена карты составила {price}")
+    try:
+        price = int(''.join(correctedList))
+    except ValueError:
+        price = 1001
     else:
-        #print(type(price), price)
-        print('Нет карт по выбранной цене')
-        pyautogui.click(x=x3-1600, y=y3+180, clicks=1)
+            if price <= 1000:
+                #print(price)
+                pyautogui.click(x=x1-1590, y=y1+190, clicks=6)
+                for i in range(5):
+                    kb.send("Enter")
+                print(f"Цена карты составила {price}")
+            else:
+                #print(type(price), price)
+                print('Нет карт по выбранной цене')
+                pyautogui.click(x=x3-1600, y=y3+180, clicks=1)
     print(f"Проверка номер {counter}. Минимальная цена {price}")
     counter += 1
     print("-" * 40)
