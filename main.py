@@ -7,6 +7,10 @@ import time
 from coordinates import definePoints
 import keyboard as kb
 
+def picsize():
+    im = Image.open("monitor-1.png")
+    (x, y) = im.size
+    return x,y
 
 counter = 1
 i = 0
@@ -16,7 +20,7 @@ while True:# kb.is_pressed("F9") != True:
     with mss() as sct:
         sct.shot()
 
-    pytesseract.pytesseract.tesseract_cmd = 'C:\\Users\\Andrey\\AppData\\Local\\Programs\\Tesseract-OCR\\tesseract.exe'
+    pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files (x86)\\Tesseract-OCR\\tesseract.exe'
     im = Image.open('monitor-1.png')
     im_crop = im.crop((x1, y1, x2, y2))
     im_crop.save('MarketPic.jpg', quality=95)
