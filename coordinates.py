@@ -1,5 +1,6 @@
 import pyautogui
 import keyboard as kb
+
 """
 def defineURPoint():
     x1 = int()
@@ -37,14 +38,11 @@ def definePoints():
     while y3 == 0:
         if kb.is_pressed("z"):
             x1, y1 = pyautogui.position()
-            #x1 += 1600
-            #y1 -= 180
+            # z - правая верхняя точка прямоугольника цены лота
         elif kb.is_pressed("x"):
             x2, y2 = pyautogui.position()
-            #x2 += 1600
-            #y2 -= 180
+            # y - левая нижняя точка прямоугольника цены лота
         elif kb.is_pressed("v"):
             x3, y3 = pyautogui.position()
-            #x3 += 1600
-            #y3 -= 180
+            # v - точка обновления рынка
     return x1, y1, x2, y2, x3, y3
