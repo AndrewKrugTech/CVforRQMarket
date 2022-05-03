@@ -1,5 +1,4 @@
 import math
-
 import pyautogui
 from mss import mss
 from PIL import Image
@@ -22,7 +21,7 @@ x1, y1, x2, y2, x3, y3 = definePoints()
 
 while True:  # kb.is_pressed("F9") != True:
     with mss() as sct:
-        sct.shot()
+        sct.shot()#creating monitor-1.png
 
     pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files (x86)\\Tesseract-OCR\\tesseract.exe'
     im = Image.open('monitor-1.png')
@@ -31,7 +30,7 @@ while True:  # kb.is_pressed("F9") != True:
     img = cv2.imread(im_crop)
     # img = cv2.imread('MarketPic.jpg')
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-
+    print('CHECK POINT')
     config = r'--oem 3 --psm 6'
     l = list(pytesseract.image_to_string(img, config=config))  # [:5]
     # print(l)
@@ -56,7 +55,7 @@ while True:  # kb.is_pressed("F9") != True:
     else:
         if price <= 1000:
             # print(price)
-            pyautogui.click(x=math.floor((x1+x2)/2), y=math.floor((y1+y2)/2), clicks=6)
+            pyautogui.click(x=math.floor((x1 + x2) / 2), y=math.floor((y1 + y2) / 2), clicks=6)
             for i in range(5):
                 kb.send("Enter")
             print(f"Цена карты составила {price}")
@@ -64,7 +63,7 @@ while True:  # kb.is_pressed("F9") != True:
             # print(type(price), price)
             print('Нет карт по выбранной цене')
             pyautogui.click(x=x3, y=y3, clicks=1)
-    print(f"Проверка номер {counter}. Минимальная цена {price}")
+    print(f"Проверка номер - {counter}. Минимальная цена - {price}")
     counter += 1
     print("-" * 40)
     time.sleep(3)
