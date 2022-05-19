@@ -38,10 +38,10 @@ def definePoints():
     while y3 == 0:
         if kb.is_pressed("z"):
             x1, y1 = pyautogui.position()
-            # z - правая верхняя точка прямоугольника цены лота
+            # z - левая верхняя точка прямоугольника цены лота
         elif kb.is_pressed("x"):
             x2, y2 = pyautogui.position()
-            # y - левая нижняя точка прямоугольника цены лота
+            # y - правая нижняя точка прямоугольника цены лота
         elif kb.is_pressed("v"):
             x3, y3 = pyautogui.position()
             # v - точка обновления рынка
