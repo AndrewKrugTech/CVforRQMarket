@@ -14,7 +14,7 @@ def picsize(): #
     (x, y) = im.size
     return x, y
 """""
-
+'''
 counter = 1
 #i = 0
 x1, y1, x2, y2, x3, y3 = definePoints()
@@ -63,7 +63,7 @@ while True:  # kb.is_pressed("F9") != True:
     counter += 1
     print("-" * 43)
     time.sleep(3)
-
+'''
 """
 data = pytesseract.image_to_data(img, config=config)
 for i, el in enumerate(data.splitlines()):
