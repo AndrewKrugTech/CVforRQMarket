@@ -3,18 +3,13 @@ import pyautogui
 from mss import mss
 from PIL import Image
 import cv2
-import pytesseract
+#import pytesseract
 import time
 from coordinates import definePoints
 import keyboard as kb
 
-"""""
-def picsize(): #
-    im = Image.open("monitor-1.png")
-    (x, y) = im.size
-    return x, y
-"""""
 '''
+
 counter = 1
 #i = 0
 x1, y1, x2, y2, x3, y3 = definePoints()
